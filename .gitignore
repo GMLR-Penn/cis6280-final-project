@@ -1,0 +1,25 @@
+.venv/
+__pycache__/
+*.egg-info/
+assets/sharpa/
+outputs/
+runs/
+.DS_Store
+assets/scene.xml
+assets/pen/
+.env
+.env.*
+!.env.example
+build/
+dist/
+datasets/
+
+# Downloads and outputs of the assignment commands
+dataset/
+checkpoints/
+bc-noise-4cube-20k/
+cache-4cube-20k/
+latents-smwm-c3/
+smwm-c3*/
+df-smwm-c1-sigma04/
+onpolicy-*/

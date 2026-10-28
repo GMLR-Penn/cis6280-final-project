@@ -1,0 +1,55 @@
+name: Smoke check
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [tests, box, varied]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    env:
+      MUJOCO_GL: osmesa
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install software rendering libraries
+        run: sudo apt-get update && sudo apt-get install -y libosmesa6 libgl1
+      - name: Prepare environment
+        run: bash scripts/setup.sh
+      - name: Simulator and assignment unit tests
+        if: matrix.suite == 'tests'
+        run: .venv/bin/python -m unittest discover -s tests -v
+      - name: Assignment stage entry points
+        if: matrix.suite == 'tests'
+        run: |
+          for stage in data.collect data.cache data.encode data.collect_onpolicy \
+                       training.train_jepa training.train_policy training.finetune_onpolicy \
+                       planning.goals planning.evaluate; do
+            .venv/bin/python -m assignment.training.$stage --help > /dev/null
+          done
+      - name: Same-footprint successful recording, video and replay
+        if: matrix.suite == 'box'
+        run: |
+          .venv/bin/python scripts/collect_box_dataset.py --out datasets/ci-box --successes 1 --max-attempts 3 --start-seed 1000 --resolution 64 --workers 1 --render-workers 1
+      - name: Variable-size paired failure recording and replay
+        if: matrix.suite == 'varied'
+        run: |
+          .venv/bin/python scripts/collect_varied_box_dataset.py --out datasets/ci-varied-box --scenes 1 --modes nominal weak_grip --time-limit 2 --resolution 64 --workers 1 --render-workers 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-${{ matrix.suite }}
+          if-no-files-found: ignore
+          path: |
+            datasets/ci-box/manifest.json
+            datasets/ci-box/validation.json
+            datasets/ci-varied-box/manifest.json
+            datasets/ci-varied-box/validation.json

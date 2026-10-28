@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "world-model-gym"
+version = "0.2.0"
+description = "MuJoCo dexterous cube-stacking simulator and latent world-model assignment"
+requires-python = ">=3.10"
+dependencies = [
+    "mujoco>=3.3,<4",
+    "gymnasium>=1.1,<2",
+    "numpy>=2",
+    "imageio[ffmpeg]>=2.30",
+    "pillow>=10",
+    "scipy>=1.14",
+    "torch>=2.6,<3",
+    "huggingface_hub>=0.26",
+    "matplotlib>=3.9,<4",
+]
+
+[project.optional-dependencies]
+worldmodel = ["torch>=2.6,<3", "huggingface_hub>=0.26", "matplotlib>=3.9,<4"]
+
+[tool.setuptools.packages.find]
+include = ["assignment*", "cube_pick*"]

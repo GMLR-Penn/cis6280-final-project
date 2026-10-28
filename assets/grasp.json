@@ -1,0 +1,27 @@
+{
+  "description": "IK-generated reset pose; not a trained policy",
+  "joints": {
+    "right_thumb_CMC_FE": 1.253478007409387,
+    "right_thumb_CMC_AA": 0.1855478321425267,
+    "right_thumb_MCP_FE": -0.06426743040776754,
+    "right_thumb_MCP_AA": 0.09212862321829356,
+    "right_thumb_IP": 0.36472433600682486,
+    "right_index_MCP_FE": 0.0838890921681144,
+    "right_index_MCP_AA": 0.006760122664613016,
+    "right_index_PIP": 1.2347223410112473,
+    "right_index_DIP": 1.1043350741792741,
+    "right_middle_MCP_FE": 0.12397333967551279,
+    "right_middle_MCP_AA": 0.0032852253593984616,
+    "right_middle_PIP": 1.2485390605993203,
+    "right_middle_DIP": 1.0988829842596388,
+    "right_ring_MCP_FE": -0.016350867126234125,
+    "right_ring_MCP_AA": -0.006208383965871714,
+    "right_ring_PIP": 1.3842134430623276,
+    "right_ring_DIP": 0.8910427453659417,
+    "right_pinky_CMC": 0.007973150097714684,
+    "right_pinky_MCP_FE": 0.27128812403279157,
+    "right_pinky_MCP_AA": -0.024422936518867285,
+    "right_pinky_PIP": 0.8606090472971203,
+    "right_pinky_DIP": 0.7898209326854324
+  }
+}
